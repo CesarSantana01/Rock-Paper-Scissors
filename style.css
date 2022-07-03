@@ -1,3 +1,79 @@
-div{
-    color: aqua;
+body{
+    background-color: rgb(220, 218, 218);
 }
+
+#title{
+    
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+ 
+}
+
+.btncls{
+display: flex;
+margin:30px;
+justify-content: space-around;
+
+}
+
+button{
+    width: 100px;
+    height: 70px;
+    border-radius: 5px;
+    border: none;
+    background-color: transparent;
+    text-shadow: 2px 2px grey;    
+    cursor:grab;
+}
+
+button:hover{
+    
+    transform: scale(1.2);
+}
+
+#scoreBoard{
+    text-shadow: 1px 2px grey;
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    
+}
+
+.scoreContainer{
+display: flex;
+justify-content: space-around;
+}
+
+.scoreTitle{
+    border-radius: 6px;
+    display: flex;
+    
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 30px;
+    height: 200px;
+    width: 300px;
+    font-size: 20px;
+    border: 3px ridge rgb(80, 80, 80);
+    border-style:ridge;
+    
+    
+}
+#playerScore{
+    align-self: flex-start;
+}
+
+#results{
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+}
+
+[data-choices]{
+font-size: 50px;
+}
+

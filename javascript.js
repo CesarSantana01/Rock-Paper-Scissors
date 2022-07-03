@@ -1,37 +1,25 @@
 
+    const buttons = document.querySelectorAll("button");
+    const buttons_array = Array.from(buttons);
+
+    const playerPara = document.querySelector("#playerPara");
+    const compPara = document.querySelector("#compPara");
+
+    const playerScoreBox = document.querySelector("#playerScoreBox");
+    const computerScoreBox = document.querySelector("#computerScoreBox");
+
+    let playerSelection = null;
 
 
-
-const crock = "rock";
-const cpaper = "paper";
-const cscissors = "scissors";
-
-const urock = "rock";
-const upaper = "paper";
-const uscissors = "scissors";
-
-
-let play = confirm("Do you want to play Rock, Paper, Scissors?");
-
-if (play == true){
-    RPS();
-}else{
-    alert("Have a great day!");
-}
-
-
-
-function RPS(){
-
-    let compScore = 0;
-    let userScore = 0
- 
-for (let i = 1; i <=5; i++){
+let compChoice = null;
     
-    let user = prompt("Rock, Paper, or Scissors?");
-    user = user.toLowerCase();
+function getCompChoice(){
 
-    let compChoice;
+let crock = "rock"
+let cpaper = "paper"
+let cscissors = "scissors"
+
+
     let random = Math.floor(Math.random()*12)+1;
     if (random <=4){
         compChoice = crock;
@@ -40,58 +28,121 @@ for (let i = 1; i <=5; i++){
     }else{
         compChoice = cscissors;
     }
-    
-    
-    if(user == "rock"){
-     user = urock;
-    }else if(user == "paper"){
-     user = upaper
-    }else if (user == "scissors"){
-     user = uscissors; 
-    }
+    return compChoice;
+}
 
-    if(user == urock && compChoice == cpaper){
-        alert("Computer won this round!");
-        compScore++;
+let playerScore = 0;
+let compScore = 0;
+let round = 0;
 
-    }else if (user == urock && compChoice == cscissors){
-        alert("You won this round!");
-        userScore++;
-    }else if(user == upaper && compChoice == crock){
-        alert("You won this round!");
-        userScore++;
-    }else if(user == upaper && compChoice == cscissors){
-        alert("Computer won this round!");
-        compScore++;
-    }else if(user == uscissors && compChoice == crock){
-        alert("Computer won this round!");
-        compScore++;
-    }else if(user == uscissors && compChoice == cpaper){
-        alert("You won this round!");
-        userScore++;
+const results = document.querySelector("#resultshd");
+
+function getWinner(){
+    if(round==5){
+        if(playerScore>compScore){
+        winner = "You win!"
+    }else if(playerScore<compScore){
+        winner = "Computer Wins!"
     }else{
-        alert("This round was a tie.");
+        winner = "This game was a tie!"
+    }
+    return [
+        results.textContent=winner,
+        round = 0,
+        playerScore = 0,
+        compScore = 0
+    ];
+    }else{
+        return;
+    }
+}
+
+function getSelection(){
+    playerPara.textContent= ("You selected: "+ playerSelection)
+    compPara.textContent= ("Computer selected: "+ compChoice)
+
+}
+function displayScore(){
+    if(playerScore === 1){
+        playerScoreBox.textContent = ("You have "+playerScore+" point!" );
+    }else{
+    playerScoreBox.textContent = ("You have "+playerScore+" points!" );
+    }
+    if(compScore === 1){
+        computerScoreBox.textContent = ("Computer has "+compScore+" point!" );
+    }else{
+    computerScoreBox.textContent = ("Computer has "+compScore+" points!" );
+    }
+}
+function play(){
+    getCompChoice();
+  
+    if(playerSelection == "rock" && compChoice == "scissors"){
+        results.textContent="You won this round!"
+        playerScore++;
+    }else if(playerSelection == "rock" && compChoice == "paper"){
+        results.textContent="Computer won this round!"
+        compScore++;
+    }else if(playerSelection == "scissors" && compChoice == "paper"){
+        results.textContent="You won this round!"
+        playerScore++;
+    }else if(playerSelection == "scissors" && compChoice == "rock"){
+        results.textContent="Computer won this round!"
+        compScore++;
+    }else if(playerSelection == "paper" && compChoice == "rock"){
+        results.textContent="You won this round!"
+        playerScore++;
+    }else if(playerSelection == "paper" && compChoice == "scissors"){
+        results.textContent="Computer won this round!"
+        compScore++;
+    }else{
+        results.textContent="This round was a tie";
     }
 
-    alert("Games won: \n You: " + userScore + "\n Computer: "+compScore)
-    console.log("computer: "+compChoice);
-    console.log("User: "+user);
-}
-if(userScore > compScore){
-    alert("You won the game!")
-}else if (userScore < compScore){
-    alert("Sorry, you lost the game.")
-}else{
-    alert("The game is a tie!");
-}
-
-let playAgain = confirm("Do you want to play again?");
-
-if (playAgain == true){
-    RPS();
-}else{
-    alert("Thank you for playing :)");
     
-}
+console.log(playerSelection);
+console.log(compChoice);
 
 }
+function getWinner(){
+    if(playerScore>compScore){
+        winner = "You win!"
+    }else if(playerScore<compScore){
+        winner = "Computer Wins!"
+    }else{
+        winner = "This game was a tie!"
+    }
+}
+   
+    let winner;
+    
+buttons_array.forEach( button => {
+    button.addEventListener("click", e =>{
+        playerSelection = button.dataset.choices;
+        play()
+        getSelection();
+        displayScore();
+        round++;
+
+        
+        if(round==5){
+            if(playerScore>compScore){
+            winner = "You win!"
+        }else if(playerScore<compScore){
+            winner = "Computer Wins!"
+        }else{
+            winner = "This game was a tie!"
+        }
+        return [
+            results.textContent=winner,
+            round = 0,
+            playerScore = 0,
+            compScore = 0
+        ];
+        }else{
+            return;
+        }
+        
+    });      
+    })
+
